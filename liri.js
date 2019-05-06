@@ -46,9 +46,28 @@ else if(command == 'do-what-it-says'){
 
 }
 else if(command == 'movie-this'){
+  let queryUrl = 'https://www.omdbapi.com/?t=';
+  if(query == ''){
+    queryUrl += `Mr.+Nobody&y=&plot=short&apikey=${Keys.omdb.api_key}`;
+    console.log('If you haven\'t watched "Mr. Nobody," then you should: <http://www.imdb.com/title/tt0485947/>');
+    console.log('It\'s on Netflix!');
+  }
+  else{
+    queryUrl += `${query.join('+')}&y=&plot=short&apikey=${Keys.omdb.api_key}`;
+  }
 
-  var queryUrl = `https://www.omdbapi.com/?t=${query.join('+')}&y=&plot=short&apikey=${Keys.omdb.api_key}`;
-  Axios.get(queryUrl).then(function(response){console.log(response);});
+  console.log(queryUrl);
+  Axios.get(queryUrl).then(function(response){
+    console.log('------------------------');
+    console.log(`Title: ${response.data.Title}`);
+    console.log(`Released: ${Moment(new Date(response.data.Released)).format('MMMM Do, YYYY')}`);
+    console.log(`Rated: ${response.data.Rated}`);
+    console.log(`Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`);
+    console.log(`Language: ${response.data.Language}`);
+    console.log(`Plot: ${response.data.Plot}`);
+    console.log(`Actors: ${response.data.Actors}`);
+  })
+  .catch(err => {console.log(err);});
   // omdb
 
   // node liri.js movie-this '<movie name here>'`
@@ -65,12 +84,7 @@ else if(command == 'movie-this'){
   //      * Plot of the movie.
   //      * Actors in the movie.
   //    ```
-  //
-  //  * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-  //
-  //    * If you haven't watched "Mr. Nobody," then you should: <http://www.imdb.com/title/tt0485947/>
-  //
-  //    * It's on Netflix!
+
 }
 else if(command == 'concert-this'){
   Axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=${Keys.bands_in_town.api_key}`)
@@ -81,8 +95,8 @@ else if(command == 'concert-this'){
     dates.forEach(x =>{
       console.log('------------------------');
       console.log(`Venue: ${(x.venue.name)}`);
-      console.log(`Location: ${x.venue.city}, ${x.venue.region}\t${x.venue.country}`);
-      console.log(`Date: ${x.datetime}`);
+      console.log(`Location: ${x.venue.city}, ${x.venue.region} - ${x.venue.country}`);
+      console.log(`Date: ${Moment(x.datetime).format('MMMM Do YYYY, h:mm:ss a')}`);
     });
   })
   .catch(err => {console.log(err)});
