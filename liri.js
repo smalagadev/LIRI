@@ -52,8 +52,7 @@ const movie_this = function(movie){
   else{
     queryUrl += `${movie.join('+')}&y=&plot=short&apikey=${Keys.omdb.api_key}`;
   }
-
-  console.log(queryUrl);
+  
   Axios.get(queryUrl).then(function(response){
     console.log(divider);
     console.log(`Title: ${response.data.Title}`);
