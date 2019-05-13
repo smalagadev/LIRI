@@ -48,8 +48,8 @@ Format: ![Alt Text](url)
 
    * If no song is provided then your program will default to "The Sign" by Ace of Base.
 
-   ![spotify-this](assets/images/spotify-this.png)
-   Format: ![Alt Text](url)
+![spotify-this](assets/images/spotify-this.png)
+Format: ![Alt Text](url)
 
 3. `node liri.js movie-this '<movie name here>'`
 
@@ -79,5 +79,5 @@ Format: ![Alt Text](url)
 
    * LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
-   ![do-this](assets/images/do-this.png)
-   Format: ![Alt Text](url)
+![do-this](assets/images/do-this.png)
+Format: ![Alt Text](url)
